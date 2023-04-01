@@ -2,8 +2,12 @@ package com.youcode;
 
 public class Opps {
     public static void main(String[] args) {
-        var employee = new Employee();
-        employee.pay();
+        Payable[] payables = {
+          new Contractor(),
+                new Employee(),
+                new Vendor()
+        };
+        for (Payable payable : payables) payable.pay();
     }
 }
 
@@ -18,8 +22,18 @@ interface Payable{
 }
 
 
-class Employee extends Payable.Implementation{
+class Employee implements Payable{
     private Payable delegate =  new Payable.Implementation();
     public void pay(){delegate.pay();}
+}
+
+class Contractor extends Payable.Implementation{}
+
+class Vendor implements Payable{
+    @Override
+    public void pay() {
+        System.out.println("i am payed differently");
+
+    }
 }
 
